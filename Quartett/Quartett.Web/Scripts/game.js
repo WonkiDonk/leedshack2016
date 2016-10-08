@@ -25,7 +25,7 @@
             this.card = nextCard;
         },
 
-        setChoice: function(name) {
+        setChoice: function (name) {
             this.choice = name;
         }
     }
@@ -36,7 +36,7 @@
     var me, them;
     var map;
 
-    var renderMap = function($container, location) {
+    var renderMap = function ($container, location) {
         map = new google.maps.Map($container.get(0),
         {
             center: { lat: location.latitude, lng: location.longitude },
@@ -44,7 +44,7 @@
         });
     };
 
-    var renderCharacteristics = function($container, characteristics) {
+    var renderCharacteristics = function ($container, characteristics) {
         $container.find('li').remove();
         var $ul = $container.find('ul');
         $.each(characteristics,
@@ -62,7 +62,7 @@
             });
     };
 
-    var renderCard = function($container, card) {
+    var renderCard = function ($container, card) {
         var $card = $container.find('.card');
         $card.find('.name').text(card.name);
 
@@ -70,7 +70,7 @@
         renderCharacteristics($card.find('.characters'), card.characteristics);
     };
 
-    var updateMyCard = function() {
+    var updateMyCard = function () {
         renderCard($me, me.card);
 
         $me.find('.card .characters ul')
@@ -84,7 +84,7 @@
                 });
 
         $send.on('click',
-            function() {
+            function () {
                 $send.off('click');
                 game.server.applyChoice(me.choice);
             });
@@ -95,11 +95,9 @@
         $them.find('.numberOfCards').text(them.numberOfCards);
     };
 
-    var updateGame = function() {
+    var updateGame = function () {
         updateNumberOfCards();
         updateMyCard();
-
-        // Todo;
     };
 
     var updateNames = function () {
@@ -107,14 +105,17 @@
         $them.find('.playerName').text(them.name);
     };
 
-    var hideAll = function() {
+    var hideAll = function () {
         $start.toggleClass('hidden', true);
         $waiting.toggleClass('hidden', true);
         $game.toggleClass('hidden', true);
     };
 
     var showWinnerOfRound = function(winnerName) {
-        // Todo;
+        renderCard($them, them.card);
+
+        // Todo: show winner of the round
+        alert("winner of the round");
     };
 
     var showGame = function () {
@@ -144,12 +145,16 @@
         };
 
         game.client.receiveNextCard = function (yourNumberOfCardsRemaining, theirNumberOfCardsRemaining, card) {
-            me.numberOfCards = yourNumberOfCardsRemaining;
-            me.card = card;
-            them.numberOfCards = theirNumberOfCardsRemaining;
+            // Wait 2 seconds before showing next card
+            setTimeout(function() {
+                    me.numberOfCards = yourNumberOfCardsRemaining;
+                    me.card = card;
+                    them.numberOfCards = theirNumberOfCardsRemaining;
 
-            updateGame();
-            showGame();
+                    updateGame();
+                    showGame();
+                },
+                2000);
         };
 
         game.client.makeChoice = function () {
@@ -162,18 +167,19 @@
             $them.toggleClass('makeChoice', true);
         };
 
-        game.client.reveal = function(winnerName, opponentsCard) {
+        game.client.reveal = function (winnerName, opponentsCard) {
             $them.card = opponentsCard;
-
             showWinnerOfRound(winnerName);
         };
 
         game.client.win = function () {
             // Todo;
+            alert("you are the winner");
         };
 
         game.client.lose = function () {
             // Todo;
+            alert("you loose");
         };
 
         $.connection.hub.start()
