@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\QuartettWeb - Web Deploy.pubxml" />
+    <Content Include="Scripts\game.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup />
