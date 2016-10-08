@@ -5,7 +5,7 @@ using Quartett.WebApi.Services;
 
 namespace Quartett.WebApi.Hubs
 {
-    public sealed class GameServer : Hub<IGameClient>, IGameServer
+    public sealed class GameHub : Hub<IGameClient>, IGameServer
     {
         private readonly GameService _service = new GameService();
 
