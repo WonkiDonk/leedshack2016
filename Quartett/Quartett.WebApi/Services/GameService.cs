@@ -28,5 +28,15 @@ namespace Quartett.WebApi.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<string> PlayCard(string playerId, string choice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EndGame()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
