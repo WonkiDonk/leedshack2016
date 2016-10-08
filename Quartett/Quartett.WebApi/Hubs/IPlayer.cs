@@ -2,6 +2,6 @@
 {
     public interface IPlayer
     {
-        void Start(string otherPlayer);
+        void Start(string player1, string player2);
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace Quartett.WebApi.Hubs
+﻿using System.Threading.Tasks;
+
+namespace Quartett.WebApi.Hubs
 {
     public interface IGameHub
     {
-        void RegisterPlayer1(string name);
-        void RegisterPlayer2(string name);
+        Task RegisterPlayer1(string name);
+        Task RegisterPlayer2(string name);
     }
 }
