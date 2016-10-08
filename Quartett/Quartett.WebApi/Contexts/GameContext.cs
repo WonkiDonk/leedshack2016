@@ -7,5 +7,6 @@ namespace Quartett.WebApi.Contexts
     {
         internal GameContext() : base("GameContext") { }
         public virtual DbSet<Card> Cards { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
     }
 }

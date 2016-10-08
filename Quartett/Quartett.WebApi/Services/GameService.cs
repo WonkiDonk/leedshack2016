@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Quartett.WebApi.Contexts;
+using Quartett.WebApi.Factories;
 using Quartett.WebApi.Models;
+using Quartett.WebApi.Repositories;
 
 namespace Quartett.WebApi.Services
 {
     internal sealed class GameService
     {
-        private readonly GameContext _context = new GameContext();
+        private readonly GameRepository _repository = new GameRepository();
 
-        public Task RegisterPlayer1(string id)
+        public async Task RegisterPlayer1(string playerId)
         {
-            throw new System.NotImplementedException();
+            var game = await _repository.GetGame().ConfigureAwait(false);
+            game.Player1Id = playerId;
+            await _repository.UpdateGame(game).ConfigureAwait(false);
         }
 
-        public Task RegisterPlayer2(string id)
+        public async Task RegisterPlayer2(string playerId)
         {
-            throw new NotImplementedException();
+            var game = await _repository.GetGame().ConfigureAwait(false);
+            game.Player2Id = playerId;
+            await _repository.UpdateGame(game).ConfigureAwait(false);
         }
 
         public Task<bool> GetIsGameReady()
@@ -24,9 +29,10 @@ namespace Quartett.WebApi.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<Game> GetGame()
+        public async Task<Game> GetGame()
         {
-            throw new System.NotImplementedException();
+            var game = await _repository.GetGame().ConfigureAwait(false);
+            return GameFactory.Create(game);
         }
 
         public Task<string> PlayCard(string playerId, string choice)

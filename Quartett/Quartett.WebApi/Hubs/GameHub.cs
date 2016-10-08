@@ -19,40 +19,40 @@ namespace Quartett.WebApi.Hubs
             }
         }
 
-        private readonly GameService _gameService = new GameService();
+        private readonly GameService _service = new GameService();
 
         public async Task RegisterPlayer1(string name)
         {
-            await _gameService.RegisterPlayer1(Context.ConnectionId).ConfigureAwait(false);
+            await _service.RegisterPlayer1(Context.ConnectionId).ConfigureAwait(false);
             Clients.All.ReceivePlayer1(name);
             await StartGameIfReady().ConfigureAwait(false);
         }
 
         public async Task RegisterPlayer2(string name)
         {
-            await _gameService.RegisterPlayer2(Context.ConnectionId).ConfigureAwait(false);
+            await _service.RegisterPlayer2(Context.ConnectionId).ConfigureAwait(false);
             Clients.All.ReceivePlayer2(name);
             await StartGameIfReady().ConfigureAwait(false);
         }
 
         public async Task ReceiveChoice(string characteristicName)
         {
-            var winnerOfRound = await _gameService.PlayCard(
+            var winnerOfRound = await _service.PlayCard(
                 playerId: Context.ConnectionId,
                 choice: characteristicName).ConfigureAwait(false);
-            var game = await _gameService.GetGame().ConfigureAwait(false);
+            var game = await _service.GetGame().ConfigureAwait(false);
 
             if (game.Player1.NumberOfCardsRemaining == 0)
             {
                 await EndGame(
-                    loser: game.Player1.ConnectionId,
-                    winner: game.Player2.ConnectionId).ConfigureAwait(false);
+                    loser: game.Player1.PlayerId,
+                    winner: game.Player2.PlayerId).ConfigureAwait(false);
             }
             else if (game.Player2.NumberOfCardsRemaining == 0)
             {
                 await EndGame(
-                    loser: game.Player2.ConnectionId,
-                    winner: game.Player1.ConnectionId).ConfigureAwait(false);
+                    loser: game.Player2.PlayerId,
+                    winner: game.Player1.PlayerId).ConfigureAwait(false);
             }
             else
             {
@@ -62,10 +62,10 @@ namespace Quartett.WebApi.Hubs
 
         private async Task StartGameIfReady()
         {
-            if (await _gameService.GetIsGameReady().ConfigureAwait(false))
+            if (await _service.GetIsGameReady().ConfigureAwait(false))
             {
-                var game = await _gameService.GetGame().ConfigureAwait(false);
-                var chooserId = Randomly.Pick(game.Player1, game.Player2).ConnectionId;
+                var game = await _service.GetGame().ConfigureAwait(false);
+                var chooserId = Randomly.Pick(game.Player1, game.Player2).PlayerId;
 
                 PlayNextRound(chooserId, game);
             }
@@ -82,7 +82,7 @@ namespace Quartett.WebApi.Hubs
 
         private void SendNextCard(Player player)
         {
-            Clients.Client(player.ConnectionId)
+            Clients.Client(player.PlayerId)
                 .ReceiveNextCard(
                     player.NumberOfCardsRemaining,
                     player.NextCard);
@@ -92,7 +92,8 @@ namespace Quartett.WebApi.Hubs
         {
             Clients.Client(winner).Win();
             Clients.Client(loser).Lose();
-            return _gameService.EndGame();
+
+            return _service.EndGame();
         }
     }
 }

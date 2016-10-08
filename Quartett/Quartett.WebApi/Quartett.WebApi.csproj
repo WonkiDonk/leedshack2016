@@ -134,10 +134,13 @@
     <Compile Include="Contexts\Entities\Characteristic.cs" />
     <Compile Include="Contexts\Entities\CharacteristicType.cs" />
     <Compile Include="Contexts\Entities\Card.cs" />
+    <Compile Include="Contexts\Entities\PlayerCard.cs" />
     <Compile Include="Contexts\GameContext.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="Factories\CharacteristicsFactory.cs" />
+    <Compile Include="Factories\GameFactory.cs" />
     <Compile Include="Factories\LocationFactory.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Hubs\IGameServer.cs" />
     <Compile Include="Hubs\IGameClient.cs" />
@@ -149,6 +152,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
+    <Compile Include="Contexts\Entities\Game.cs" />
+    <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
     <Compile Include="WebApi.cs" />
     <Compile Include="Program.cs" />
