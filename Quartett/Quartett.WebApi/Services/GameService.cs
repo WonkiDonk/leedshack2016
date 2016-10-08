@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Quartett.WebApi.Factories;
 using Quartett.WebApi.Models;
@@ -36,12 +37,36 @@ namespace Quartett.WebApi.Services
             return GameFactory.Create(game);
         }
 
-        public Task<string> PlayCard(string playerId, string choice)
+        public async Task<string> PlayCardAndDetermineWinnerOfRound(string choice)
+        {
+            var game = await GetGame().ConfigureAwait(false);
+            var player1Characteristic = GetCharacteristic(game.Player1, characteristic: choice);
+            var player2Characteristic = GetCharacteristic(game.Player2, characteristic: choice);
+
+            var didPlayer1Win = (player1Characteristic.Value < player2Characteristic.Value);
+            var winnerOfRound = didPlayer1Win
+                ? game.Player1
+                : game.Player2;
+            var loserOfRound = didPlayer1Win
+                ? game.Player2
+                : game.Player1;
+
+            Transfer(card: loserOfRound.NextCard, to: winnerOfRound.PlayerId);
+
+            return winnerOfRound.PlayerId;
+        }
+
+        public Task EndGame()
         {
             throw new NotImplementedException();
         }
 
-        public Task EndGame()
+        private static Characteristic GetCharacteristic(Player player, string characteristic)
+        {
+            return player.NextCard.Characteristics.Single(c => c.Name == characteristic);
+        }
+
+        private void Transfer(Card card, string to)
         {
             throw new NotImplementedException();
         }
