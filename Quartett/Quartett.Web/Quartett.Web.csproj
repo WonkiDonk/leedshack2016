@@ -142,6 +142,7 @@
     <Content Include="Scripts\less.js" />
     <Content Include="Scripts\less.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\quartett.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
