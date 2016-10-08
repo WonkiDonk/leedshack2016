@@ -1,4 +1,4 @@
-﻿using Quartett.WebApi.Contexts.Entities;
+﻿using Quartett.WebApi.Models;
 
 namespace Quartett.WebApi.Hubs
 {
