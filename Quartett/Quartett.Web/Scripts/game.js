@@ -47,26 +47,26 @@
         $container.find('li').remove();
         var $ul = $container.find('ul');
         $.each(characteristics,
-            function (character) {
+            function (index, character) {
                 var $li = $('<li></li>');
                 $ul.append($li);
 
                 var $name = $('<span class="name"></span>');
-                $name.text(character.name);
+                $name.text(character.Name);
                 $li.append($name);
 
                 var $value = $('<span class="value"></span>');
-                $value.text(character.value);
+                $value.text(character.Value);
                 $li.append($value);
             });
     };
 
     var renderCard = function ($container, card) {
         var $card = $container.find('.card');
-        $card.find('.name').text(card.name);
+        $card.find('.name').text(card.Name);
 
-        renderMap($card.find('.map'), card.location);
-        renderCharacteristics($card.find('.characters'), card.characteristics);
+        //renderMap($card.find('.map'), card.Location);
+        renderCharacteristics($card.find('.characters'), card.Characteristics);
     };
 
     var updateMyCard = function () {
@@ -79,7 +79,7 @@
                     var $li = $(this);
                     $li.parent().find('li').removeClass('active');
                     $li.addClass('active');
-                    me.setChoice($li.find('.name'));
+                    me.setChoice($li.find('.name').text());
                 });
 
         $send.on('click',
@@ -157,13 +157,13 @@
         };
 
         game.client.makeChoice = function () {
-            $me.toggleClass('makeChoice', true);
-            $them.toggleClass('makeChoice', false);
+            $me.addClass('makeChoice');
+            $them.removeClass('makeChoice');
         };
 
         game.client.awaitChoice = function () {
-            $me.toggleClass('makeChoice', false);
-            $them.toggleClass('makeChoice', true);
+            $me.removeClass('makeChoice');
+            $them.addClass('makeChoice');
         };
 
         game.client.reveal = function (winnerName, opponentsCard) {
