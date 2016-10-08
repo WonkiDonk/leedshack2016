@@ -15,7 +15,6 @@
     <script src="Scripts/respond.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.1.js"></script>
     <script src="/signalr/hubs"></script>
-    <script src="Scripts/game.js"></script>
 </head>
 <body>
     <div id="start" class="">
@@ -24,8 +23,10 @@
             Name
             <input type="text" name="playerName" id="playerName" />
         </label>
-        <button id="player1">Player 1</button>
-        <button id="player2">Player 2</button>
+        <div class="buttons">
+            <button id="player1">Player 1</button>
+            <button id="player2">Player 2</button>
+        </div>
     </div>
     <div id="waiting" class="hidden">
         <h4>Waiting for other Player</h4>
@@ -61,6 +62,8 @@
             </div>
         </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gRSE238KTkI3WdbnIiLn0Ld_mfmEzvc&callback=initMap" async defer></script>
+
+    <script src="Scripts/game.js"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gRSE238KTkI3WdbnIiLn0Ld_mfmEzvc&callback=initMap" async defer></script>-->
 </body>
 </html>

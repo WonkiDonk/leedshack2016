@@ -213,5 +213,8 @@
         showStart();
     };
 
-    init();
+    $(document)
+        .ready(function() {
+            init();
+        });
 })(jQuery);
