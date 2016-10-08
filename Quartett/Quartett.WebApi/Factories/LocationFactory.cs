@@ -1,13 +1,17 @@
-﻿using System;
-using System.Data.Entity.Spatial;
+﻿using System.Data.Entity.Spatial;
+using Quartett.WebApi.Models;
 
 namespace Quartett.WebApi.Factories
 {
     internal static class LocationFactory
     {
-        internal static Models.GeoLocation Create(DbGeography location)
+        internal static GeoLocation Create(DbGeography entity)
         {
-            throw new NotImplementedException();
+            return new GeoLocation
+            {
+                Latitude  = entity.Latitude.GetValueOrDefault(),
+                Longitude = entity.Longitude.GetValueOrDefault()
+            };
         }
     }
 }
