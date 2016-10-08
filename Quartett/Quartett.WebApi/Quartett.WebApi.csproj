@@ -144,6 +144,7 @@
     <Compile Include="Hubs\GameHub.cs" />
     <Compile Include="Hubs\IGameServer.cs" />
     <Compile Include="Hubs\IGameClient.cs" />
+    <Compile Include="Services\Randomly.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Characteristic.cs" />
     <Compile Include="Models\Game.cs" />

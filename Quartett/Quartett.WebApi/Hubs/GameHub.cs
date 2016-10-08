@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Quartett.WebApi.Models;
 using Quartett.WebApi.Services;
@@ -9,16 +7,6 @@ namespace Quartett.WebApi.Hubs
 {
     public sealed class GameServer : Hub<IGameClient>, IGameServer
     {
-        private static class Randomly
-        {
-            private static readonly Random Random = new Random();
-
-            internal static T Pick<T>(params T[] values)
-            {
-                return values.ElementAt(Random.Next(0, values.Length));
-            }
-        }
-
         private readonly GameService _service = new GameService();
 
         public async Task RegisterPlayer1(string name)

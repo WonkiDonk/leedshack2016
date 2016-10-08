@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Quartett.WebApi.Factories;
@@ -9,26 +10,27 @@ namespace Quartett.WebApi.Services
 {
     internal sealed class GameService
     {
+        private const int NumberCardsPerPlayerPerGame = 10;
         private readonly GameRepository _repository = new GameRepository();
 
         public async Task RegisterPlayer1(string playerId)
         {
             var game = await _repository.GetGame().ConfigureAwait(false);
             game.Player1Id = playerId;
-            await _repository.UpdateGame(game).ConfigureAwait(false);
+            await UpdateGameAndStartIfReady(game).ConfigureAwait(false);
         }
 
         public async Task RegisterPlayer2(string playerId)
         {
             var game = await _repository.GetGame().ConfigureAwait(false);
             game.Player2Id = playerId;
-            await _repository.UpdateGame(game).ConfigureAwait(false);
+            await UpdateGameAndStartIfReady(game).ConfigureAwait(false);
         }
 
         public async Task<bool> GetIsGameReady()
         {
             var game = await _repository.GetGame().ConfigureAwait(false);
-            return !string.IsNullOrWhiteSpace(game.Player1Id) && !string.IsNullOrWhiteSpace(game.Player2Id);
+            return IsGameReady(game);
         }
 
         public async Task<Game> GetGame()
@@ -59,6 +61,55 @@ namespace Quartett.WebApi.Services
         public Task EndGame()
         {
             throw new NotImplementedException();
+        }
+
+        private async Task UpdateGameAndStartIfReady(Contexts.Entities.Game game)
+        {
+            if (IsGameReady(game))
+            {
+                await DealCards(game).ConfigureAwait(false);
+            }
+
+            await _repository.UpdateGame(game).ConfigureAwait(false);
+        }
+
+        private static bool IsGameReady(Contexts.Entities.Game game)
+        {
+            return !string.IsNullOrWhiteSpace(game.Player1Id) && !string.IsNullOrWhiteSpace(game.Player2Id);
+        }
+
+        private async Task DealCards(Contexts.Entities.Game game)
+        {
+            var availableCards = (await _repository.GetCards().ConfigureAwait(false)).ToList();
+            var player1Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
+            var player2Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
+
+            for (var order = 0; order < NumberCardsPerPlayerPerGame; order++)
+            {
+                game.PlayerCards.Add(PickCard(game.Player1Id, order, ref availableCards, ref player1Cards));
+                game.PlayerCards.Add(PickCard(game.Player2Id, order, ref availableCards, ref player2Cards));
+            }
+        }
+
+        private static Contexts.Entities.PlayerCard PickCard(string playerId, int order, ref List<Contexts.Entities.Card> fromCards, ref List<Contexts.Entities.PlayerCard> toCards)
+        {
+            var card = Randomly.Pick(fromCards.ToArray());
+            var playerCard = CreatePlayerCard(playerId, order, card);
+
+            fromCards.Remove(card);
+            toCards.Add(playerCard);
+
+            return playerCard;
+        }
+
+        private static Contexts.Entities.PlayerCard CreatePlayerCard(string playerId, int order, Contexts.Entities.Card card)
+        {
+            return new Contexts.Entities.PlayerCard
+            {
+                PlayerId = playerId,
+                CardId   = card.Id,
+                Order    = order
+            };
         }
 
         private static Characteristic GetCharacteristic(Player player, string characteristic)

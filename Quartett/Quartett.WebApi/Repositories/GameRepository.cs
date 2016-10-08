@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Quartett.WebApi.Contexts;
 using Quartett.WebApi.Contexts.Entities;
@@ -18,6 +19,11 @@ namespace Quartett.WebApi.Repositories
         {
             _context.Entry(game).State = EntityState.Modified;
             return _context.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Card>> GetCards()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
