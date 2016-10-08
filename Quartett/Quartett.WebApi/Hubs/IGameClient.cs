@@ -13,6 +13,7 @@ namespace Quartett.WebApi.Hubs
         void ReceiveNextCard(int yourNumberOfCardsRemaining, int theirNumberOfCardsRemaining, Card card);
         void MakeChoice();
         void AwaitChoice();
+        void Reveal(string winnerName, Card opponentsCard);
         #endregion
 
         #region End
