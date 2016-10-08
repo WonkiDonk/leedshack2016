@@ -21,9 +21,9 @@ namespace Quartett.WebApi.Repositories
             return _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Card>> GetCards()
+        public async Task<IEnumerable<Card>> GetAllCards()
         {
-            throw new System.NotImplementedException();
+            return await _context.Cards.ToListAsync().ConfigureAwait(false);
         }
 
         public Task DeleteGame()

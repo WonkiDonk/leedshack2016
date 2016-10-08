@@ -79,7 +79,7 @@ namespace Quartett.WebApi.Services
 
         private async Task DealCards(Contexts.Entities.Game game)
         {
-            var availableCards = (await _repository.GetCards().ConfigureAwait(false)).ToList();
+            var availableCards = (await _repository.GetAllCards().ConfigureAwait(false)).ToList();
             var player1Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
             var player2Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
 
