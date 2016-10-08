@@ -25,5 +25,10 @@ namespace Quartett.WebApi.Repositories
         {
             throw new System.NotImplementedException();
         }
+
+        public Task DeleteGame()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

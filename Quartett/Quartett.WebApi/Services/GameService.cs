@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Quartett.WebApi.Factories;
@@ -60,7 +59,7 @@ namespace Quartett.WebApi.Services
 
         public Task EndGame()
         {
-            throw new NotImplementedException();
+            return _repository.DeleteGame();
         }
 
         private async Task UpdateGameAndStartIfReady(Contexts.Entities.Game game)
