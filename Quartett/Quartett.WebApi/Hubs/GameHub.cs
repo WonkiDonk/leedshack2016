@@ -37,10 +37,14 @@ namespace Quartett.WebApi.Hubs
 
         public async Task ReceiveChoice(string characteristicName)
         {
-            var winnerOfRound = await _service.PlayCard(
-                playerId: Context.ConnectionId,
-                choice: characteristicName).ConfigureAwait(false);
             var game = await _service.GetGame().ConfigureAwait(false);
+            var winnerOfRound = await _service.PlayCardAndDetermineWinnerOfRound(
+                choice: characteristicName).ConfigureAwait(false);
+
+            Clients.Client(game.Player1.PlayerId).Reveal(winnerOfRound, game.Player2.NextCard);
+            Clients.Client(game.Player2.PlayerId).Reveal(winnerOfRound, game.Player1.NextCard);
+
+            game = await _service.GetGame().ConfigureAwait(false);
 
             if (game.Player1.NumberOfCardsRemaining == 0)
             {
