@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quartett</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="Content/site.css" rel="stylesheet" />
     <link href="Content/styles.less" rel="stylesheet/less" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="https://use.fontawesome.com/c6af0def7e.js"></script>
@@ -15,6 +14,7 @@
     <script src="Scripts/bootstrap.js"></script>
     <script src="Scripts/respond.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.1.js"></script>
+    <script src="Scripts/quartett.js"></script>
     <!--<script src="http://api.quartett.tech:8430/signalr/hubs"></script>-->
     <script src="http://localhost:8430/signalr/hubs"></script>
     <script src="Scripts/game.js"></script>
@@ -22,11 +22,34 @@
 <body>
     <div id="start" class="container">
         <h1>Quartett</h1>
-        <button>Player 1</button>
-        <button>Player 2</button>
+        <button id="player1">Player 1</button>
+        <button id="player2">Player 2</button>
     </div>
-    <div id="game" class="container hidden">
-
+    <div id="game" class="container">
+        <div id="mycards" class="hasTurn">
+            <div class="turn">
+                <h1>Your turn</h1>
+            </div>
+            <h1>You</h1>
+            <div class="card my active">
+                <div class="name">Property name</div>
+                <div class="map"></div>
+                <div class="characters">
+                    <ul>
+                        <li class="selected">
+                            <span class="name">School</span>
+                            <span class="value">12.2</span>
+                        </li>
+                    </ul>
+                </div>
+                <button id="send">Send</button>
+            </div>
+            <div class="shaddow"></div>
+        </div>
+        <div id="theircards">
+            <div class="card their"></div>
+        </div>
     </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gRSE238KTkI3WdbnIiLn0Ld_mfmEzvc&callback=initMap" async defer></script>
 </body>
 </html>
