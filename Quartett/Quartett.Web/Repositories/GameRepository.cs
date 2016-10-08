@@ -12,7 +12,16 @@ namespace Quartett.Web.Repositories
 
         public async Task<Game> GetGame()
         {
-            return await _context.Games.FirstOrDefaultAsync().ConfigureAwait(false);
+            var game = await _context.Games.FirstOrDefaultAsync().ConfigureAwait(false);
+
+            if (game == null)
+            {
+                game = new Game();
+                _context.Games.Add(game);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
+
+            return game;
         }
 
         public Task UpdateGame(Game game)
