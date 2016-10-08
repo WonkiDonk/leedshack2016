@@ -9,12 +9,12 @@ namespace Quartett.WebApi.Services
     {
         private readonly GameContext _context = new GameContext();
 
-        public Task RegisterPlayer1(string id, string name)
+        public Task RegisterPlayer1(string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task RegisterPlayer2(string id, string name)
+        public Task RegisterPlayer2(string id)
         {
             throw new NotImplementedException();
         }

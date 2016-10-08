@@ -2,7 +2,7 @@
 
 namespace Quartett.WebApi.Hubs
 {
-    public interface IPlayer
+    public interface IGameClient
     {
         #region Start
         void ReceivePlayer1(string name);

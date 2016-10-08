@@ -139,8 +139,8 @@
     <Compile Include="Factories\CharacteristicsFactory.cs" />
     <Compile Include="Factories\LocationFactory.cs" />
     <Compile Include="Hubs\GameHub.cs" />
-    <Compile Include="Hubs\IGameHub.cs" />
-    <Compile Include="Hubs\IPlayer.cs" />
+    <Compile Include="Hubs\IGameServer.cs" />
+    <Compile Include="Hubs\IGameClient.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Characteristic.cs" />
     <Compile Include="Models\Game.cs" />

@@ -4,18 +4,20 @@ using Quartett.WebApi.Services;
 
 namespace Quartett.WebApi.Hubs
 {
-    public sealed class GameHub : Hub<IPlayer>, IGameHub
+    public sealed class GameServer : Hub<IGameClient>, IGameServer
     {
         private readonly GameService _gameService = new GameService();
+
         public async Task RegisterPlayer1(string name)
         {
+            await _gameService.RegisterPlayer1(Context.ConnectionId).ConfigureAwait(false);
             Clients.All.ReceivePlayer1(name);
-            //await _gameService.RegisterPlayer1(Context.ConnectionId, name).ConfigureAwait(false);
             await StartGameIfReady().ConfigureAwait(false);
         }
 
         public async Task RegisterPlayer2(string name)
         {
+            await _gameService.RegisterPlayer2(Context.ConnectionId).ConfigureAwait(false);
             Clients.All.ReceivePlayer2(name);
             await StartGameIfReady().ConfigureAwait(false);
         }
