@@ -42,7 +42,22 @@ namespace Quartett.WebApi.Hubs
                 choice: characteristicName).ConfigureAwait(false);
             var game = await _gameService.GetGame().ConfigureAwait(false);
 
-            PlayNextRound(winnerOfRound, game);
+            if (game.Player1.NumberOfCardsRemaining == 0)
+            {
+                await EndGame(
+                    loser: game.Player1.ConnectionId,
+                    winner: game.Player2.ConnectionId).ConfigureAwait(false);
+            }
+            else if (game.Player2.NumberOfCardsRemaining == 0)
+            {
+                await EndGame(
+                    loser: game.Player2.ConnectionId,
+                    winner: game.Player1.ConnectionId).ConfigureAwait(false);
+            }
+            else
+            {
+                PlayNextRound(winnerOfRound, game);
+            }
         }
 
         private async Task StartGameIfReady()
@@ -71,6 +86,13 @@ namespace Quartett.WebApi.Hubs
                 .ReceiveNextCard(
                     player.NumberOfCardsRemaining,
                     player.NextCard);
+        }
+
+        private Task EndGame(string loser, string winner)
+        {
+            Clients.Client(winner).Win();
+            Clients.Client(loser).Lose();
+            return _gameService.EndGame();
         }
     }
 }

@@ -33,5 +33,10 @@ namespace Quartett.WebApi.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task EndGame()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
