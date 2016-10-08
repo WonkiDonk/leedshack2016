@@ -23,7 +23,7 @@ namespace Quartett.WebApi.Hubs
             await StartGameIfReady().ConfigureAwait(false);
         }
 
-        public async Task ReceiveChoice(string characteristicName)
+        public async Task ApplyChoice(string characteristicName)
         {
             var game = await _service.GetGame().ConfigureAwait(false);
             var winnerOfRound = await _service.PlayCardAndDetermineWinnerOfRound(
