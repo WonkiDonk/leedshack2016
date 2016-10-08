@@ -1,8 +1,7 @@
 namespace Quartett.Web.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class DatabaseGeneratedKeys : DbMigration
     {
         public override void Up()
@@ -16,11 +15,11 @@ namespace Quartett.Web.Migrations
             DropPrimaryKey("dbo.CharacteristicTypes");
             DropPrimaryKey("dbo.Games");
             DropPrimaryKey("dbo.PlayerCards");
-            AlterColumn("dbo.Cards", "Id", c => c.Guid(nullable: false, identity: true));
-            AlterColumn("dbo.Characteristics", "Id", c => c.Guid(nullable: false, identity: true));
-            AlterColumn("dbo.CharacteristicTypes", "Id", c => c.Guid(nullable: false, identity: true));
-            AlterColumn("dbo.Games", "Id", c => c.Guid(nullable: false, identity: true));
-            AlterColumn("dbo.PlayerCards", "Id", c => c.Guid(nullable: false, identity: true));
+            AlterColumn("dbo.Cards", "Id", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
+            AlterColumn("dbo.Characteristics", "Id", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
+            AlterColumn("dbo.CharacteristicTypes", "Id", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
+            AlterColumn("dbo.Games", "Id", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
+            AlterColumn("dbo.PlayerCards", "Id", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
             AddPrimaryKey("dbo.Cards", "Id");
             AddPrimaryKey("dbo.Characteristics", "Id");
             AddPrimaryKey("dbo.CharacteristicTypes", "Id");
