@@ -15,6 +15,7 @@ namespace Quartett.Web.Factories
 
             return new Player
             {
+                PlayerId = playerId,
                 NumberOfCardsRemaining = playersCards.Count(),
                 NextCard = (nextCardEntity == null)
                     ? null
