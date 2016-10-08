@@ -19,6 +19,7 @@ namespace Quartett.WebApi
             );
 
             appBuilder.UseWebApi(config);
+            appBuilder.MapSignalR();
         }
     }
 }
