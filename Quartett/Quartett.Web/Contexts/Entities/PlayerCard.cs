@@ -5,6 +5,7 @@ namespace Quartett.Web.Contexts.Entities
 {
     public class PlayerCard
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string PlayerId { get; set; }
         [ForeignKey("Card")]
