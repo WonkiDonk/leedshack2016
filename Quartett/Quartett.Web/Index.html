@@ -34,12 +34,28 @@
     </div>
     <div id="game" class="hidden">
         <div id="me">
-            <div class="turn hidden">
+            <div class="turn">
                 <h1>Your turn</h1>
             </div>
             <h1 class="playerName"></h1>
-            <div class="card my active">
+            <h2 class="numberOfCards"></h2>
+            <div class="card">
                 <div class="name">Property name</div>
+                <div class="map"></div>
+                <div class="characters">
+                    <ul></ul>
+                </div>
+                <button id="send">Send</button>
+            </div>
+        </div>
+        <div id="them">
+            <div class="turn">
+                <h1>Their turn</h1>
+            </div>
+            <h1 class="playerName"></h1>
+            <h2 class="numberOfCards"></h2>
+            <div class="card">
+                <!--<div class="name">Property name</div>
                 <div class="map"></div>
                 <div class="characters">
                     <ul>
@@ -49,12 +65,8 @@
                         </li>
                     </ul>
                 </div>
-                <button id="send">Send</button>
+                <button id="send">Send</button>-->
             </div>
-            <div class="shaddow"></div>
-        </div>
-        <div id="them">
-            <div class="card their"></div>
         </div>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gRSE238KTkI3WdbnIiLn0Ld_mfmEzvc&callback=initMap" async defer></script>
