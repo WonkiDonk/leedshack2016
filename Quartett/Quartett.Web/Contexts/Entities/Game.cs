@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+
+namespace Quartett.Web.Contexts.Entities
+{
+    public class Game
+    {
+        public Guid Id { get; set; }
+        public string Player1Id { get; set; }
+        public string Player2Id { get; set; }
+        public virtual ICollection<PlayerCard> PlayerCards { get; set; }
+    }
+}
