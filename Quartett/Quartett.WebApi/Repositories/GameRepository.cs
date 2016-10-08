@@ -26,9 +26,11 @@ namespace Quartett.WebApi.Repositories
             return await _context.Cards.ToListAsync().ConfigureAwait(false);
         }
 
-        public Task DeleteGame()
+        public async Task DeleteGame()
         {
-            throw new System.NotImplementedException();
+            var game = await GetGame().ConfigureAwait(false);
+            _context.Games.Remove(game);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }
