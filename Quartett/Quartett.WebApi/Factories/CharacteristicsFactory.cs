@@ -6,9 +6,8 @@ namespace Quartett.WebApi.Factories
         {
             return new Models.Characteristic
             {
-                TypeId = entity.TypeId,
-                Name   = entity.Type.Name,
-                Value  = entity.Value
+                Name  = entity.Type.Name,
+                Value = entity.Value
             };
         }
     }

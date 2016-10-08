@@ -133,7 +133,8 @@
   <ItemGroup>
     <Compile Include="Contexts\Entities\Characteristic.cs" />
     <Compile Include="Contexts\Entities\CharacteristicType.cs" />
-    <Compile Include="Contexts\Entities\Land.cs" />
+    <Compile Include="Contexts\Entities\Card.cs" />
+    <Compile Include="Contexts\GameContext.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="Factories\CharacteristicsFactory.cs" />
     <Compile Include="Factories\LocationFactory.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
+    <Compile Include="Services\GameService.cs" />
     <Compile Include="WebApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />
@@ -165,9 +167,7 @@
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
