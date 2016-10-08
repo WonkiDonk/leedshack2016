@@ -73,18 +73,19 @@ namespace Quartett.WebApi.Hubs
 
         private void PlayNextRound(string chooserId, Game game)
         {
-            SendNextCard(game.Player1);
-            SendNextCard(game.Player2);
+            SendNextCard(game.Player1, game.Player2.NumberOfCardsRemaining);
+            SendNextCard(game.Player2, game.Player1.NumberOfCardsRemaining);
 
             Clients.Client(chooserId).MakeChoice();
             Clients.AllExcept(chooserId).AwaitChoice();
         }
 
-        private void SendNextCard(Player player)
+        private void SendNextCard(Player player, int theirNumberOfCardsRemaining)
         {
             Clients.Client(player.PlayerId)
                 .ReceiveNextCard(
                     player.NumberOfCardsRemaining,
+                    theirNumberOfCardsRemaining,
                     player.NextCard);
         }
 

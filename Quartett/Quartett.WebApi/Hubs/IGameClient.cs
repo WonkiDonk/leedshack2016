@@ -10,7 +10,7 @@ namespace Quartett.WebApi.Hubs
         #endregion
 
         #region Play
-        void ReceiveNextCard(int numberOfCardRemaining, Card card);
+        void ReceiveNextCard(int yourNumberOfCardsRemaining, int theirNumberOfCardsRemaining, Card card);
         void MakeChoice();
         void AwaitChoice();
         #endregion
