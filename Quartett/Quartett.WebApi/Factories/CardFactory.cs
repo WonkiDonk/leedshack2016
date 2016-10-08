@@ -11,7 +11,7 @@ namespace Quartett.WebApi.Factories
                 Id              = entity.Id,
                 Name            = entity.Name,
                 Characteristics = entity.Characteristics.Select(CharacteristicsFactory.Create).ToArray(),
-                Location        = LocationFactory.Create(entity.Location)
+                Location        = LocationFactory.Create(entity.Latitude, entity.Longitude)
             };
         }
     }

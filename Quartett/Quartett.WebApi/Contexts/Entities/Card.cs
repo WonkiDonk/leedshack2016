@@ -10,7 +10,8 @@ namespace Quartett.WebApi.Contexts.Entities
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public DbGeography Location { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public virtual ICollection<Characteristic> Characteristics { get; set; }
     }
