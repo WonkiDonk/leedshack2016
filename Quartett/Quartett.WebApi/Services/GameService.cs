@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Quartett.WebApi.Factories;
@@ -53,14 +52,14 @@ namespace Quartett.WebApi.Services
                 ? game.Player2
                 : game.Player1;
 
-            Transfer(card: loserOfRound.NextCard, to: winnerOfRound.PlayerId);
+            await UpdateCards(winnerOfRound, loserOfRound).ConfigureAwait(false);
 
             return winnerOfRound.PlayerId;
         }
 
         public Task EndGame()
         {
-            throw new NotImplementedException();
+            return _repository.DeleteGame();
         }
 
         private async Task UpdateGameAndStartIfReady(Contexts.Entities.Game game)
@@ -80,7 +79,7 @@ namespace Quartett.WebApi.Services
 
         private async Task DealCards(Contexts.Entities.Game game)
         {
-            var availableCards = (await _repository.GetCards().ConfigureAwait(false)).ToList();
+            var availableCards = (await _repository.GetAllCards().ConfigureAwait(false)).ToList();
             var player1Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
             var player2Cards = new List<Contexts.Entities.PlayerCard>(NumberCardsPerPlayerPerGame);
 
@@ -117,9 +116,40 @@ namespace Quartett.WebApi.Services
             return player.NextCard.Characteristics.Single(c => c.Name == characteristic);
         }
 
-        private void Transfer(Card card, string to)
+        private async Task UpdateCards(Player winnerOfRound, Player loserOfRound)
         {
-            throw new NotImplementedException();
+            var game = await _repository.GetGame().ConfigureAwait(false);
+
+            TransferCardToWinner(
+                ref game,
+                losingCard: loserOfRound.NextCard,
+                winnerId: winnerOfRound.PlayerId);
+
+            MoveCurrentCardToEndOfDeck(ref game, game.Player1Id);
+            MoveCurrentCardToEndOfDeck(ref game, game.Player2Id);
+
+            await _repository.UpdateGame(game).ConfigureAwait(false);
         }
+
+        private static void TransferCardToWinner(ref Contexts.Entities.Game game, Card losingCard, string winnerId)
+        {
+            var allCards = game.PlayerCards.ToArray();
+            var cardToTransfer = allCards.Single(playerCard => playerCard.CardId == losingCard.Id);
+            var winnersCards = allCards.Where(playerCard => playerCard.PlayerId == winnerId).ToArray();
+            var lastWinnersCardOrder = winnersCards.Max(winnerCard => winnerCard.Order);
+
+            cardToTransfer.Order = lastWinnersCardOrder + 1;
+            cardToTransfer.PlayerId = winnerId;
+        }
+
+        private static void MoveCurrentCardToEndOfDeck(ref Contexts.Entities.Game game, string playerId)
+        {
+            var allCards = game.PlayerCards.ToArray();
+            var cards = allCards.Where(playerCard => playerCard.PlayerId == playerId).ToArray();
+            var lastCardOrder = cards.Max(card => card.Order);
+
+            cards.First().Order = lastCardOrder + 1;
+        }
+
     }
 }
