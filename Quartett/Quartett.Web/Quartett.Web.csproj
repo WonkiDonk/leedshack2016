@@ -174,6 +174,10 @@
     <Compile Include="Migrations\201610082130558_InitialMigration.Designer.cs">
       <DependentUpon>201610082130558_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610082222421_DatabaseGeneratedKeys.cs" />
+    <Compile Include="Migrations\201610082222421_DatabaseGeneratedKeys.Designer.cs">
+      <DependentUpon>201610082222421_DatabaseGeneratedKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Characteristic.cs" />
@@ -229,6 +233,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610082130558_InitialMigration.resx">
       <DependentUpon>201610082130558_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610082222421_DatabaseGeneratedKeys.resx">
+      <DependentUpon>201610082222421_DatabaseGeneratedKeys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
