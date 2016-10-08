@@ -24,9 +24,10 @@ namespace Quartett.WebApi.Services
             await _repository.UpdateGame(game).ConfigureAwait(false);
         }
 
-        public Task<bool> GetIsGameReady()
+        public async Task<bool> GetIsGameReady()
         {
-            throw new System.NotImplementedException();
+            var game = await _repository.GetGame().ConfigureAwait(false);
+            return !string.IsNullOrWhiteSpace(game.Player1Id) && !string.IsNullOrWhiteSpace(game.Player2Id);
         }
 
         public async Task<Game> GetGame()
