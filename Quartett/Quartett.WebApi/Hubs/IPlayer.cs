@@ -1,7 +1,23 @@
-﻿namespace Quartett.WebApi.Hubs
+﻿using Quartett.WebApi.Contexts.Entities;
+
+namespace Quartett.WebApi.Hubs
 {
     public interface IPlayer
     {
-        void Start(string player1, string player2);
+        #region Start
+        void ReceivePlayer1(string name);
+        void ReceivePlayer2(string name);
+        #endregion
+
+        #region Play
+        void ReceiveNextCard(int numberOfCardRemaining, Card card);
+        void MakeChoice();
+        void AwaitChoice();
+        #endregion
+
+        #region End
+        void Win();
+        void Lose(); 
+        #endregion
     }
 }

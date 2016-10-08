@@ -9,11 +9,18 @@ namespace Quartett.WebApi.Hubs
         private readonly GameService _gameService = new GameService();
         public async Task RegisterPlayer1(string name)
         {
-            await _gameService.RegisterPlayer1(Context.ConnectionId, name).ConfigureAwait(false);
+            Clients.All.ReceivePlayer1(name);
+            //await _gameService.RegisterPlayer1(Context.ConnectionId, name).ConfigureAwait(false);
             await StartGameIfReady().ConfigureAwait(false);
         }
 
-        public Task RegisterPlayer2(string name)
+        public async Task RegisterPlayer2(string name)
+        {
+            Clients.All.ReceivePlayer2(name);
+            await StartGameIfReady().ConfigureAwait(false);
+        }
+
+        public Task ReceiveChoice(string characteristicName)
         {
             throw new System.NotImplementedException();
         }
