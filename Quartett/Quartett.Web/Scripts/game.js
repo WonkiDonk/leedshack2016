@@ -34,10 +34,9 @@
     var player2 = new Player();
 
     var me, them;
-    var map;
 
     var renderMap = function ($container, location) {
-        map = new google.maps.Map($container.get(0),
+        new google.maps.Map($container.get(0),
         {
             center: { lat: location.latitude, lng: location.longitude },
             zoom: 8
