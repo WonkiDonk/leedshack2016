@@ -69,6 +69,7 @@
     };
 
     var renderCard = function ($container, card) {
+        debugger;
         var $card = $container.find('.card');
         $card.find('.name').text(card.Name);
 
@@ -79,6 +80,10 @@
 
     var updateMyCard = function () {
         renderCard($me, me.card);
+    };
+
+    var updateTheirCard = function() {
+        renderCard($them, them.card);
     };
 
     var updateNumberOfCards = function () {
@@ -102,11 +107,8 @@
         $game.toggleClass('hidden', true);
     };
 
-    var showWinnerOfRound = function(winnerName) {
-        renderCard($them, them.card);
-
-        // Todo: show winner of the round
-        alert("winner of the round");
+    var showWinnerOfRound = function (didYouWin) {
+        // Todo
     };
 
     var showGame = function () {
@@ -180,9 +182,10 @@
             $send.addClass('hidden');
         };
 
-        game.client.reveal = function (winnerName, opponentsCard) {
+        game.client.reveal = function (didYouWin, opponentsCard) {
             them.card = opponentsCard;
-            showWinnerOfRound(winnerName);
+            updateTheirCard();
+            showWinnerOfRound(didYouWin);
         };
 
         game.client.win = function () {
