@@ -68,19 +68,18 @@ namespace Quartett.Web.Migrations
             switch (name)
             {
                 case "Field Size Rating":
-                    maximumValue = 10;
-                    break;
-                case "Health Care":
-                    maximumValue = 10000;
+                case "Air Pollution":
+                case "Flood Risk":
+                    maximumValue = Scales.Metres;
                     break;
                 case "Education":
-                    maximumValue = 1000;
-                    break;
                 case "Transportation":
-                    maximumValue = 1000;
+                    maximumValue = Scales.Kilometres;
                     break;
-                case "Air Quality":
-                    maximumValue = 10;
+                case "Health Care":
+                case "Culture":
+                case "Commerce":
+                    maximumValue = Scales.TenKilometres;
                     break;
                 default:
                     maximumValue = 100;
@@ -88,6 +87,13 @@ namespace Quartett.Web.Migrations
             }
 
             return Random.NextDouble() * maximumValue;
+        }
+
+        private static class Scales
+        {
+            internal const int Metres = 10;
+            internal const int TenKilometres = 10000;
+            internal const int Kilometres = 1000;
         }
     }
 }
