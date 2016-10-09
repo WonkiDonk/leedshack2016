@@ -132,11 +132,15 @@
     var configureClientHub = function () {
         game.client.receivePlayer1 = function (name) {
             player1.setName(name);
+            me = player1;
+            them = player2;
             updateNames();
         };
 
         game.client.receivePlayer2 = function (name) {
             player2.setName(name);
+            me = player2;
+            them = player1;
             updateNames();
         };
 
@@ -158,8 +162,9 @@
             $me.addClass('makeChoice');
             $them.removeClass('makeChoice');
 
-            $me.find('.card .characters ul')
-            .on('click',
+            var $ul = $me.find('.card .characters ul');
+            
+            $ul.on('click',
                 'li',
                 function () {
                     var $li = $(this);
@@ -169,13 +174,12 @@
                     $send.removeClass('hidden');
                 });
 
-            $send
-                .removeClass('hidden')
-                .on('click',
-                    function() {
-                        $send.off('click');
-                        game.server.applyChoice(me.choice);
-                    });
+            $send.on('click',
+                function() {
+                    $send.off('click').addClass('hidden');
+                    $ul.find('li').off('click');
+                    game.server.applyChoice(me.choice);
+                });
         };
 
         game.client.awaitChoice = function () {
@@ -213,8 +217,6 @@
                 function () {
                     $('#playerName').val('Player 1');
                     if ($('#playerName').val() !== '') {
-                        me = player1;
-                        them = player2;
                         game.server.registerPlayer1($('#playerName').val());
                         showWait();
                     }
@@ -225,8 +227,6 @@
                 function () {
                     $('#playerName').val('Player 2');
                     if ($('#playerName').val() !== '') {
-                        me = player2;
-                        them = player1;
                         game.server.registerPlayer2($('#playerName').val());
                         showWait();
                     }
