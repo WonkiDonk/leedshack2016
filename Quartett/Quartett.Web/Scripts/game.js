@@ -5,7 +5,9 @@
         $game = $('#game'),
         $me = $('#me'),
         $them = $('#them'),
-        $send = $('#send');
+        $send = $('#send'),
+        $winner = $('#winner'),
+        $loser = $('#loser');
 
     var Player = function () {
         var self = this;
@@ -123,6 +125,8 @@
         $start.toggleClass('hidden', true);
         $waiting.toggleClass('hidden', true);
         $game.toggleClass('hidden', true);
+        $winner.toggleClass('hidden', true);
+        $loser.toggleClass('hidden', true);
     };
 
     var showWinnerOfRound = function (didYouWin, winningCharacteristic) {
@@ -217,13 +221,13 @@
         };
 
         game.client.win = function () {
-            // Todo;
-            alert("you are the winner");
+            hideAll();
+            $winner.toggleClass('hidden', false);
         };
 
         game.client.lose = function () {
-            // Todo;
-            alert("you loose");
+            hideAll();
+            $loser.toggleClass('hidden', false);
         };
 
         $.connection.hub.start()
