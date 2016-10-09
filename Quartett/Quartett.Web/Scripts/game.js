@@ -176,7 +176,7 @@
                     updateGame();
                     showGame();
                 },
-                2000);
+                3500);
         };
 
         game.client.makeChoice = function () {
@@ -236,7 +236,10 @@
         $('#player1')
             .on('click',
                 function () {
-                    $('#playerName').val('Player 1');
+                    if ($('#playerName').val() == '') {
+                        $('#playerName').val('Player 1');
+                    }
+
                     if ($('#playerName').val() !== '') {
                         game.server.registerPlayer1($('#playerName').val());
                         showWait();
@@ -246,7 +249,10 @@
         $('#player2')
             .on('click',
                 function () {
-                    $('#playerName').val('Player 2');
+                    if ($('#playerName').val() == '') {
+                        $('#playerName').val('Player 2');
+                    }
+
                     if ($('#playerName').val() !== '') {
                         game.server.registerPlayer2($('#playerName').val());
                         showWait();

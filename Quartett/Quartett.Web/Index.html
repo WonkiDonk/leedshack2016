@@ -34,7 +34,10 @@
         </div>
         <div id="game" class="hidden">
             <div id="me" class="col-xs-6">
-                <h2 class="playerName"></h2>
+                <h2>
+                    <span class="playerName"></span>
+                    <span>(<span class="numberOfCards"></span> Cards)</span>
+                </h2>
                 <div class="card">
                     <div class="name">Property name</div>
                     <div class="map"></div>
@@ -43,10 +46,12 @@
                     </div>
                     <button id="send">Send</button>
                 </div>
-                <h2 class="numberOfCards"></h2>
             </div>
             <div id="them" class="col-xs-6">
-                <h2 class="playerName"></h2>
+                <h2>
+                    <span class="playerName"></span>
+                    <span>(<span class="numberOfCards"></span> Cards)</span>
+                </h2>
                 <div class="card">
                     <div class="name">Property name</div>
                     <div class="map"></div>
@@ -54,7 +59,6 @@
                         <ul></ul>
                     </div>
                 </div>
-                <h2 class="numberOfCards"></h2>
             </div>
         </div>
         <button id="quit" class="center-block">Quit</button>
