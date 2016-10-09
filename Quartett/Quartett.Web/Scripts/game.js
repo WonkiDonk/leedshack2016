@@ -27,6 +27,13 @@
 
         setChoice: function (name) {
             this.choice = name;
+        },
+
+        reset: function() {
+            this.name = '';
+            this.card = {};
+            this.numberOfCards = 0;
+            this.choice = '';
         }
     }
 
@@ -134,6 +141,7 @@
                     me.numberOfCards = yourNumberOfCardsRemaining;
                     me.card = card;
                     them.numberOfCards = theirNumberOfCardsRemaining;
+                    them.card = {};
 
                     updateGame();
                     showGame();
@@ -169,11 +177,11 @@
             $me.removeClass('makeChoice');
             $them.addClass('makeChoice');
 
-            $send.addClass('hidden')
+            $send.addClass('hidden');
         };
 
         game.client.reveal = function (winnerName, opponentsCard) {
-            $them.card = opponentsCard;
+            them.card = opponentsCard;
             showWinnerOfRound(winnerName);
         };
 
@@ -214,6 +222,17 @@
                         game.server.registerPlayer2($('#playerName').val());
                         showWait();
                     }
+                });
+
+        $('#quit')
+            .on('click',
+                function() {
+                    game.server.quit();
+
+                    player1.reset();
+                    player2.reset();
+
+                    showStart();
                 });
     };
 
