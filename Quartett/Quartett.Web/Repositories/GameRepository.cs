@@ -37,9 +37,14 @@ namespace Quartett.Web.Repositories
 
         public async Task DeleteGame()
         {
-            var game = await GetGame().ConfigureAwait(false);
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            var game = await _context.Games.FirstOrDefaultAsync().ConfigureAwait(false);
+
+            if (game != null)
+            {
+                game.PlayerCards.Clear();
+                _context.Games.Remove(game);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
     }
 }

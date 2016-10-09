@@ -52,6 +52,11 @@ namespace Quartett.Web.Hubs
             }
         }
 
+        public Task QuitGame()
+        {
+            return _service.EndGame();
+        }
+
         private async Task StartGameIfReady()
         {
             if (await _service.GetIsGameReady().ConfigureAwait(false))

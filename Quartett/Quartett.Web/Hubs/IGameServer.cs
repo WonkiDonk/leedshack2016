@@ -7,5 +7,6 @@ namespace Quartett.Web.Hubs
         Task RegisterPlayer1(string name);
         Task RegisterPlayer2(string name);
         Task ApplyChoice(string characteristicName);
+        Task QuitGame();
     }
 }
