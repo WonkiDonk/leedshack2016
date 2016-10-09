@@ -45,7 +45,7 @@
     var renderMap = function ($container, location) {
         new google.maps.Map($container.get(0),
         {
-            center: { lat: location.latitude, lng: location.longitude },
+            center: { lat: location.Latitude, lng: location.Longitude },
             zoom: 8
         });
     };
@@ -75,7 +75,13 @@
         var $card = $container.find('.card');
         $card.find('.name').text(card.Name != undefined ? card.Name : '');
 
-        //renderMap($card.find('.map'), card.Location);
+        var $map = $card.find('.map');
+        if (card.Location != undefined) {
+            renderMap($map, card.Location);
+        } else {
+            $map.html('');
+        }
+        
         renderCharacteristics($card.find('.characters'), card.Characteristics);
         $send.addClass('hidden');
     };
@@ -110,8 +116,14 @@
         $game.toggleClass('hidden', true);
     };
 
-    var showWinnerOfRound = function (didYouWin) {
-        // Todo
+    var showWinnerOfRound = function (didYouWin, winningCharacteristic) {
+        $me.find('.card .characters ul')
+            .find('li:contains(' + winningCharacteristic + ')')
+            .addClass(didYouWin ? 'won' : 'lost');
+
+        $them.find('.card .characters ul')
+            .find('li:contains(' + winningCharacteristic + ')')
+            .addClass(!didYouWin ? 'won' : 'lost');
     };
 
     var showGame = function () {
@@ -189,10 +201,10 @@
             $send.addClass('hidden');
         };
 
-        game.client.reveal = function (didYouWin, opponentsCard) {
+        game.client.reveal = function (didYouWin, opponentsCard, winningCharacteristic) {
             them.card = opponentsCard;
             updateTheirCard();
-            showWinnerOfRound(didYouWin);
+            showWinnerOfRound(didYouWin, winningCharacteristic);
         };
 
         game.client.win = function () {
