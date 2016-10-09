@@ -63,7 +63,8 @@
                 $li.append($name);
 
                 var $value = $('<span class="value"></span>');
-                $value.text(character.Value);
+                var value = parseFloat(Math.round(character.Value * 100) / 100).toFixed(2);
+                $value.text(value);
                 $li.append($value);
             });
     };
