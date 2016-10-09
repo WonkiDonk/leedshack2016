@@ -9,7 +9,7 @@ namespace Quartett.Web.Services
 {
     internal sealed class GameService
     {
-        private const int NumberCardsPerPlayerPerGame = 10;
+        private const int NumberCardsPerPlayerPerGame = 5;
         private readonly GameRepository _repository = new GameRepository();
 
         public async Task RegisterPlayer1(string playerId)
