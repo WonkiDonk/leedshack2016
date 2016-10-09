@@ -52,26 +52,28 @@
 
     var renderCharacteristics = function ($container, characteristics) {
         $container.find('li').remove();
-        var $ul = $container.find('ul');
-        $.each(characteristics,
-            function (index, character) {
-                var $li = $('<li></li>');
-                $ul.append($li);
 
-                var $name = $('<span class="name"></span>');
-                $name.text(character.Name);
-                $li.append($name);
+        if (characteristics !== undefined) {
+            var $ul = $container.find('ul');
+            $.each(characteristics,
+                function(index, character) {
+                    var $li = $('<li></li>');
+                    $ul.append($li);
 
-                var $value = $('<span class="value"></span>');
-                $value.text(character.Value);
-                $li.append($value);
-            });
+                    var $name = $('<span class="name"></span>');
+                    $name.text(character.Name);
+                    $li.append($name);
+
+                    var $value = $('<span class="value"></span>');
+                    $value.text(character.Value);
+                    $li.append($value);
+                });
+        }
     };
 
     var renderCard = function ($container, card) {
-        debugger;
         var $card = $container.find('.card');
-        $card.find('.name').text(card.Name);
+        $card.find('.name').text(card.Name != undefined ? card.Name : '');
 
         //renderMap($card.find('.map'), card.Location);
         renderCharacteristics($card.find('.characters'), card.Characteristics);
@@ -94,6 +96,7 @@
     var updateGame = function () {
         updateNumberOfCards();
         updateMyCard();
+        updateTheirCard();
     };
 
     var updateNames = function () {
@@ -208,6 +211,7 @@
         $('#player1')
             .on('click',
                 function () {
+                    $('#playerName').val('Player 1');
                     if ($('#playerName').val() !== '') {
                         me = player1;
                         them = player2;
@@ -219,6 +223,7 @@
         $('#player2')
             .on('click',
                 function () {
+                    $('#playerName').val('Player 2');
                     if ($('#playerName').val() !== '') {
                         me = player2;
                         them = player1;
