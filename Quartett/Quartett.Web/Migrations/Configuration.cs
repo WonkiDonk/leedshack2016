@@ -43,13 +43,14 @@ namespace Quartett.Web.Migrations
             foreach (var card in cards)
             {
                 GenerateCharacteristics(card, characteristicTypes);
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
         }
 
         private static void GenerateCharacteristics(Card card, IEnumerable<CharacteristicType> characteristicTypes)
         {
+            card.Characteristics.Clear();
+
             foreach (var characteristicType in characteristicTypes)
             {
                 card.Characteristics.Add(new Characteristic
