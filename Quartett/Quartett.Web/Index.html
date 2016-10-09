@@ -17,8 +17,8 @@
     <script src="/signalr/hubs"></script>
 </head>
 <body>
+    <h1 class="text-center">Land Top Trumps</h1>
     <div class="mainWrap">
-        <h1 class="text-center">Land Top Trumps</h1>
         <div id="start" class="container center-block">
             <div class="row margin-bottom">
                 <label for="playerName" class="col-xs-3">Name</label>
@@ -32,9 +32,12 @@
         <div id="waiting" class="container hidden">
             <h3 class="text-center">Waiting for other Player</h3>
         </div>
-        <div id="game" class="container hidden">
+        <div id="game" class="hidden">
             <div id="me" class="col-xs-6">
-                <h2 class="playerName"></h2>
+                <h2>
+                    <span class="playerName"></span>
+                    <span>(<span class="numberOfCards"></span> Cards)</span>
+                </h2>
                 <div class="card">
                     <div class="name">Property name</div>
                     <div class="map"></div>
@@ -43,10 +46,12 @@
                     </div>
                     <button id="send">Send</button>
                 </div>
-                <h2 class="numberOfCards"></h2>
             </div>
             <div id="them" class="col-xs-6">
-                <h2 class="playerName"></h2>
+                <h2>
+                    <span class="playerName"></span>
+                    <span>(<span class="numberOfCards"></span> Cards)</span>
+                </h2>
                 <div class="card">
                     <div class="name">Property name</div>
                     <div class="map"></div>
@@ -54,11 +59,10 @@
                         <ul></ul>
                     </div>
                 </div>
-                <h2 class="numberOfCards"></h2>
             </div>
         </div>
+        <button id="quit" class="center-block">Quit</button>
     </div>
-    <button id="quit" class="center-block">Quit</button>
 
     <script src="Scripts/game.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gRSE238KTkI3WdbnIiLn0Ld_mfmEzvc" async defer></script>

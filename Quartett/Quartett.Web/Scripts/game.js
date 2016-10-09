@@ -42,11 +42,20 @@
 
     var me, them;
 
-    var renderMap = function ($container, location) {
-        new google.maps.Map($container.get(0),
+    var renderMap = function ($container, card) {
+        var myLatLng = { lat: card.Location.Latitude, lng: card.Location.Longitude };
+
+        var map = new google.maps.Map($container.get(0),
         {
-            center: { lat: location.Latitude, lng: location.Longitude },
-            zoom: 8
+            center: myLatLng,
+            zoom: 18,
+            mapTypeId: 'satellite'
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: card.Name
         });
     };
 
@@ -77,7 +86,7 @@
 
         var $map = $card.find('.map');
         if (card.Location != undefined) {
-            renderMap($map, card.Location);
+            renderMap($map, card);
         } else {
             $map.html('');
         }
@@ -167,7 +176,7 @@
                     updateGame();
                     showGame();
                 },
-                2000);
+                3500);
         };
 
         game.client.makeChoice = function () {
@@ -227,7 +236,10 @@
         $('#player1')
             .on('click',
                 function () {
-                    $('#playerName').val('Player 1');
+                    if ($('#playerName').val() == '') {
+                        $('#playerName').val('Player 1');
+                    }
+
                     if ($('#playerName').val() !== '') {
                         game.server.registerPlayer1($('#playerName').val());
                         showWait();
@@ -237,7 +249,10 @@
         $('#player2')
             .on('click',
                 function () {
-                    $('#playerName').val('Player 2');
+                    if ($('#playerName').val() == '') {
+                        $('#playerName').val('Player 2');
+                    }
+
                     if ($('#playerName').val() !== '') {
                         game.server.registerPlayer2($('#playerName').val());
                         showWait();
