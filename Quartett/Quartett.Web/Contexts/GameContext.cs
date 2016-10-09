@@ -8,5 +8,6 @@ namespace Quartett.Web.Contexts
         public GameContext() : base("GameContext") { }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<CharacteristicType> CharacteristicTypes { get; set; }
     }
 }

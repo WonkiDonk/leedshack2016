@@ -12,7 +12,9 @@ namespace Quartett.Web.Repositories
 
         public async Task<Game> GetGame()
         {
-            var game = await _context.Games.FirstOrDefaultAsync().ConfigureAwait(false);
+            var game = await _context.Games
+                .Include("PlayerCards")
+                .FirstOrDefaultAsync().ConfigureAwait(false);
 
             if (game == null)
             {
@@ -37,7 +39,8 @@ namespace Quartett.Web.Repositories
 
         public async Task DeleteGame()
         {
-            var game = await _context.Games.FirstOrDefaultAsync().ConfigureAwait(false);
+            var game = await _context.Games
+                .FirstOrDefaultAsync().ConfigureAwait(false);
 
             if (game != null)
             {

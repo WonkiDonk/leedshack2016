@@ -7,7 +7,7 @@ namespace Quartett.Web.Factories
             return new Models.Characteristic
             {
                 Name  = entity.Type.Name,
-                Value = entity.Value
+                Value = (int)entity.Value
             };
         }
     }

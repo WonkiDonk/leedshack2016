@@ -10,7 +10,9 @@ namespace Quartett.Web.Factories
             {
                 Id              = entity.Id,
                 Name            = entity.Name,
-                Characteristics = entity.Characteristics.Select(CharacteristicsFactory.Create).ToArray(),
+                Characteristics = entity.Characteristics
+                    .OrderBy(characteristic => characteristic.Type.Name)
+                    .Select(CharacteristicsFactory.Create).ToArray(),
                 Location        = LocationFactory.Create(entity.Latitude, entity.Longitude)
             };
         }
