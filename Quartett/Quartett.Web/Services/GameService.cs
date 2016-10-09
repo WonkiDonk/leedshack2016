@@ -147,9 +147,12 @@ namespace Quartett.Web.Services
         {
             var allCards = game.PlayerCards.ToArray();
             var cards = allCards.Where(playerCard => playerCard.PlayerId == playerId).ToArray();
-            var lastCardOrder = cards.Max(card => card.Order);
+            if (cards.Any())
+            {
+                var lastCardOrder = cards.Max(card => card.Order);
 
-            cards.OrderBy(card => card.Order).First().Order = lastCardOrder + 1;
+                cards.OrderBy(card => card.Order).First().Order = lastCardOrder + 1;
+            }
         }
     }
 }
