@@ -64,8 +64,9 @@ namespace Quartett.Web.Services
 
         private async Task UpdateGameAndStartIfReady(Contexts.Entities.Game game)
         {
-            if (IsGameReady(game) && !game.PlayerCards.Any())
+            if (IsGameReady(game))
             {
+                game.PlayerCards.Clear();
                 await DealCards(game).ConfigureAwait(false);
             }
 
