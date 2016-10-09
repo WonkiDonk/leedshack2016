@@ -227,7 +227,7 @@
         $('#quit')
             .on('click',
                 function() {
-                    game.server.quit();
+                    game.server.quitGame();
 
                     player1.reset();
                     player2.reset();
