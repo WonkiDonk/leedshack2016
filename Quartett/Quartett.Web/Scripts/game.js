@@ -191,19 +191,23 @@
         $('#player1')
             .on('click',
                 function () {
-                    me = player1;
-                    them = player2;
-                    game.server.registerPlayer1($('#playerName').val());
-                    showWait();
+                    if ($('#playerName').val() !== '') {
+                        me = player1;
+                        them = player2;
+                        game.server.registerPlayer1($('#playerName').val());
+                        showWait();
+                    }
                 });
 
         $('#player2')
             .on('click',
                 function () {
-                    me = player2;
-                    them = player1;
-                    game.server.registerPlayer2($('#playerName').val());
-                    showWait();
+                    if ($('#playerName').val() !== '') {
+                        me = player2;
+                        them = player1;
+                        game.server.registerPlayer2($('#playerName').val());
+                        showWait();
+                    }
                 });
     };
 

@@ -17,48 +17,44 @@
     <script src="/signalr/hubs"></script>
 </head>
 <body>
-    <div id="start" class="">
-        <h1>Quartett</h1>
-        <label>
-            Name
-            <input type="text" name="playerName" id="playerName" />
-        </label>
-        <div class="buttons">
-            <button id="player1">Player 1</button>
-            <button id="player2">Player 2</button>
-        </div>
-    </div>
-    <div id="waiting" class="hidden">
-        <h4>Waiting for other Player</h4>
-    </div>
-    <div id="game" class="hidden">
-        <div id="me">
-            <div class="turn">
-                <h1>Your turn</h1>
+    <div class="mainWrap">
+        <h1 class="text-center">Quartett</h1>
+        <div id="start" class="container center-block">
+            <div class="row margin-bottom">
+                <label for="playerName" class="col-xs-3">Name</label>
+                <input type="text" name="playerName" id="playerName" class="col-xs-9" />
             </div>
-            <h1 class="playerName"></h1>
-            <h2 class="numberOfCards"></h2>
-            <div class="card">
-                <div class="name">Property name</div>
-                <div class="map"></div>
-                <div class="characters">
-                    <ul></ul>
-                </div>
-                <button id="send">Send</button>
+            <div class="buttons row">
+                <button id="player1" class="col-xs-3 col-xs-offset-3 margin-right">Player 1</button>
+                <button id="player2" class="col-xs-3">Player 2</button>
             </div>
         </div>
-        <div id="them">
-            <div class="turn">
-                <h1>Their turn</h1>
-            </div>
-            <h1 class="playerName"></h1>
-            <h2 class="numberOfCards"></h2>
-            <div class="card">
-                <div class="name">Property name</div>
-                <div class="map"></div>
-                <div class="characters">
-                    <ul></ul>
+        <div id="waiting" class="container hidden">
+            <h3 class="text-center">Waiting for other Player</h3>
+        </div>
+        <div id="game" class="container hidden">
+            <div id="me" class="col-xs-6">
+                <h2 class="playerName"></h2>
+                <div class="card">
+                    <div class="name">Property name</div>
+                    <div class="map"></div>
+                    <div class="characters">
+                        <ul></ul>
+                    </div>
+                    <button id="send">Send</button>
                 </div>
+                <h2 class="numberOfCards"></h2>
+            </div>
+            <div id="them" class="col-xs-6">
+                <h2 class="playerName"></h2>
+                <div class="card">
+                    <div class="name">Property name</div>
+                    <div class="map"></div>
+                    <div class="characters">
+                        <ul></ul>
+                    </div>
+                </div>
+                <h2 class="numberOfCards"></h2>
             </div>
         </div>
     </div>
