@@ -67,26 +67,11 @@
 
         //renderMap($card.find('.map'), card.Location);
         renderCharacteristics($card.find('.characters'), card.Characteristics);
+        $send.addClass('hidden');
     };
 
     var updateMyCard = function () {
         renderCard($me, me.card);
-
-        $me.find('.card .characters ul')
-            .on('click',
-                'li',
-                function () {
-                    var $li = $(this);
-                    $li.parent().find('li').removeClass('active');
-                    $li.addClass('active');
-                    me.setChoice($li.find('.name').text());
-                });
-
-        $send.on('click',
-            function () {
-                $send.off('click');
-                game.server.applyChoice(me.choice);
-            });
     };
 
     var updateNumberOfCards = function () {
@@ -159,11 +144,32 @@
         game.client.makeChoice = function () {
             $me.addClass('makeChoice');
             $them.removeClass('makeChoice');
+
+            $me.find('.card .characters ul')
+            .on('click',
+                'li',
+                function () {
+                    var $li = $(this);
+                    $li.parent().find('li').removeClass('active');
+                    $li.addClass('active');
+                    me.setChoice($li.find('.name').text());
+                    $send.removeClass('hidden');
+                });
+
+            $send
+                .removeClass('hidden')
+                .on('click',
+                    function() {
+                        $send.off('click');
+                        game.server.applyChoice(me.choice);
+                    });
         };
 
         game.client.awaitChoice = function () {
             $me.removeClass('makeChoice');
             $them.addClass('makeChoice');
+
+            $send.addClass('hidden')
         };
 
         game.client.reveal = function (winnerName, opponentsCard) {
