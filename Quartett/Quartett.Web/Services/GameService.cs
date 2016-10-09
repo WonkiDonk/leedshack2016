@@ -151,6 +151,5 @@ namespace Quartett.Web.Services
 
             cards.First().Order = lastCardOrder + 1;
         }
-
     }
 }

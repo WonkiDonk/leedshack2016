@@ -29,8 +29,8 @@ namespace Quartett.Web.Hubs
             var winnerOfRound = await _service.PlayCardAndDetermineWinnerOfRound(
                 choice: characteristicName).ConfigureAwait(false);
 
-            Clients.Client(game.Player1.PlayerId).Reveal(winnerOfRound, game.Player2.NextCard);
-            Clients.Client(game.Player2.PlayerId).Reveal(winnerOfRound, game.Player1.NextCard);
+            Clients.Client(game.Player1.PlayerId).Reveal(winnerOfRound == game.Player1.PlayerId, game.Player2.NextCard);
+            Clients.Client(game.Player2.PlayerId).Reveal(winnerOfRound == game.Player2.PlayerId, game.Player1.NextCard);
 
             game = await _service.GetGame().ConfigureAwait(false);
 
