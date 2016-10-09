@@ -64,7 +64,7 @@ namespace Quartett.Web.Services
 
         private async Task UpdateGameAndStartIfReady(Contexts.Entities.Game game)
         {
-            if (IsGameReady(game))
+            if (IsGameReady(game) && !game.PlayerCards.Any())
             {
                 await DealCards(game).ConfigureAwait(false);
             }
@@ -134,7 +134,7 @@ namespace Quartett.Web.Services
         private static void TransferCardToWinner(ref Contexts.Entities.Game game, Card losingCard, string winnerId)
         {
             var allCards = game.PlayerCards.ToArray();
-            var cardToTransfer = allCards.Single(playerCard => playerCard.CardId == losingCard.Id);
+            var cardToTransfer = allCards.First(playerCard => playerCard.CardId == losingCard.Id);
             var winnersCards = allCards.Where(playerCard => playerCard.PlayerId == winnerId).ToArray();
             var lastWinnersCardOrder = winnersCards.Max(winnerCard => winnerCard.Order);
 
